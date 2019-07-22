@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>CET Data Entry</title>
+	<script type="text/javascript">
+		function checkentry()
+		{
+			rollno=document.getElementsByName("rollno").item(0).value;
+			fname=document.getElementsByName("fname").item(0).value;
+			lname=document.getElementsByName("lname").item(0).value;
+			fathersname=document.getElementsByName("fathersname").item(0).value;
+			score=document.getElementsByName("score").item(0).value;
+			if((rollno<0)  || (rollno=="") || (isNaN(rollno)) || (fname=="") || (lname=="") || (fathersname=="") || (score<0) || (score>200) || (score=="") || (isNaN(score)))
+			{
+				alert("Error occured due to one of the following reasons : \n1. Rollno is negative number or blank or non numeric. \n2. First Name left blank.\n3. Last Name left blank. \n4. Fathers Name left blank. \n5. Score is not between 0 and 200 or blank or non numeric.");
+				return false;
+			}
+		}
+		function noAlphabets(e)
+		{
+			var keynum;
+			var keychar;
+			var digitcheck;
+			if(window.event) // IE8 and earlier
+			{
+				keynum = e.keyCode;
+			}
+			else if(e.which) // IE9/Firefox/Chrome/Opera/Safari
+			{
+				keynum = e.which;
+			}
+			keychar = String.fromCharCode(keynum);
+			digitcheck = /\D/;
+			return !digitcheck.test(keychar);
+		}
+		function noNumbers(e)
+		{
+			var keynum;
+			var keychar;
+			var numcheck;
+			if(window.event) // IE8 and earlier
+			{
+				keynum = e.keyCode;
+			}
+			else if(e.which) // IE9/Firefox/Chrome/Opera/Safari
+			{
+				keynum = e.which;
+			}
+			keychar = String.fromCharCode(keynum);
+			numcheck = /\d/;
+			return !numcheck.test(keychar);
+		}
+		function nation(str)
+		{
+			if(str=="IND")
+			{
+				document.getElementById("mpy").hidden=false;
+				document.getElementById("mpn").hidden=false;
+				document.getElementById("gen").hidden=false;
+				document.getElementById("sc").hidden=false;
+				document.getElementById("st").hidden=false;
+				document.getElementById("obc").hidden=false;
+				document.getElementById("none").hidden=false;
+				document.getElementById("ph").hidden=false;
+				document.getElementById("jk").hidden=false;
+				document.getElementById("phspan").hidden=false;
+				document.getElementById("jkspan").hidden=false;
+				document.getElementById("scspan").hidden=false;
+				document.getElementById("stspan").hidden=false;
+				document.getElementById("obcspan").hidden=false;
+				document.getElementById("mpyspan").hidden=false;
+				document.getElementById("mpy").checked="checked";
+				document.getElementById("gen").checked="checked";
+				document.getElementById("none").checked="checked";
+			}
+			else
+			{
+				document.getElementById("mpy").hidden=true;
+				document.getElementById("mpn").hidden=true;
+				document.getElementById("gen").hidden=true;
+				document.getElementById("sc").hidden=true;
+				document.getElementById("st").hidden=true;
+				document.getElementById("obc").hidden=true;
+				document.getElementById("none").hidden=true;
+				document.getElementById("ph").hidden=true;
+				document.getElementById("jk").hidden=true;
+				document.getElementById("phspan").hidden=true;
+				document.getElementById("jkspan").hidden=true;
+				document.getElementById("scspan").hidden=true;
+				document.getElementById("stspan").hidden=true;
+				document.getElementById("obcspan").hidden=true;
+				document.getElementById("mpyspan").hidden=true;
+				document.getElementById("mpn").checked="checked";
+				document.getElementById("gen").checked="checked";
+				document.getElementById("none").checked="checked";
+			}
+		}
+	</script>
+</head>
+<body onload="document.cetdata.rollno.focus();document.cetdata.reset();">
+	<form name="cetdata" onsubmit="return checkentry();" action="cetdataentry.php" method="post">
+    <table border="0">
+    	<tr><td>Rollno&nbsp;&nbsp;</td><td><input name="rollno" type="number" onkeypress="return noAlphabets(event)" /></td></tr>
+        <tr><td>First Name&nbsp;&nbsp;</td><td><input name="fname" type="text" onkeypress="return noNumbers(event)" /></td></tr>
+        <tr><td>Last Name&nbsp;&nbsp;</td><td><input name="lname" type="text" onkeypress="return noNumbers(event)" /></td></tr>
+        <tr><td>Fathers Name&nbsp;&nbsp;</td><td><input name="fathersname" type="text" onkeypress="return noNumbers(event)" /></td></tr>
+        <tr><td>Gender&nbsp;&nbsp;</td><td><input name="gender" type="radio" value="M" checked="checked" />Male&emsp;
+        				  <input name="gender" type="radio" value="F" />Female</td></tr>
+        <tr><td>Nationality&nbsp;&nbsp;</td><td><input name="nationality" type="radio" value="IND" checked="checked" onchange="nation(this.value);" />Indian&emsp;
+        				  	   <input name="nationality" type="radio" value="NRI" onchange="nation(this.value);" />NRI&emsp;
+                               <input name="nationality" type="radio" value="FRN" onchange="nation(this.value);" />Foriegner</td></tr>
+        <tr><td>MP Citizen&nbsp;&nbsp;</td><td><input name="mp" id="mpy" type="radio" value="1" checked="checked" /><span id="mpyspan">Yes&emsp;</span>
+	        				  <input name="mp" id="mpn" type="radio" value="0" />No</td></tr>
+        <tr><td>Category&nbsp;&nbsp;</td><td><input name="category" id="gen" type="radio" value="GEN" checked="checked" />General&emsp;
+        				    <input name="category" id="sc" type="radio" value="SC" /><span id="scspan">SC&emsp;</span>
+                            <input name="category" id="st" type="radio" value="ST" /><span id="stspan">ST&emsp;</span>
+        				    <input name="category" id="obc" type="radio" value="OBC" /><span id="obcspan">OBC</span></td></tr>
+        <tr><td>Sub Category&nbsp;&nbsp;</td><td><input name="subcategory" id="none" type="radio" value="NULL" checked="checked" />None&emsp;
+        						<input name="subcategory" id="ph" type="radio" value="PH" /><span id="phspan">PH&emsp;</span>
+	        				    <input name="subcategory" id="jk" type="radio" value="JK" /><span id="jkspan">JK</span></td></tr>
+        <tr><td>Score&nbsp;&nbsp;</td><td><input name="score" type="number" onkeypress="return noAlphabets(event)" /></td></tr>
+        <tr><td><input type="submit" value="Submit" /></td><td>
+        <input type="reset" value="Reset" /></td></tr>
+    </table>
+	</form>
+</body>
+</html>
